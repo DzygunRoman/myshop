@@ -35,4 +35,17 @@ class Cart:
             del self.cart[product_id]
             self.save()
 
+    def __iter__(self):
+        # Прокрутить товарные позиции корзины в цикле и получить товары из базы данных
+        product_ids = self.cart.keys()
+        # Получить объекты product и добавить их в корзину
+        products = Product.objects.filter(id_in=product_ids)
+        cart = self.cart.copy()# Копируем корзину в cart
+        for product in products:
+            cart[str(product.id)]['product'] = product # Добавляем в cart экземпляры класса Product
+        for item in cart.values():
+            item['price'] = Decimal(item['price'])
+            item['total_price'] = item['price'] * item['quantity']
+            yield item
+
 
