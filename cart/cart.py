@@ -39,7 +39,7 @@ class Cart:
         # Прокрутить товарные позиции корзины в цикле и получить товары из базы данных
         product_ids = self.cart.keys()
         # Получить объекты product и добавить их в корзину
-        products = Product.objects.filter(id_in=product_ids)
+        products = Product.objects.filter(id__in=product_ids)
         cart = self.cart.copy()# Копируем корзину в cart
         for product in products:
             cart[str(product.id)]['product'] = product # Добавляем в cart экземпляры класса Product
