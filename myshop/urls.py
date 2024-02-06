@@ -27,3 +27,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = "Панель администрирования магазина" #меняем заголовок админ-панели на свой
+admin.site.index_title = "Мой магазин" #меняем подзаголовок приложения в админ-панели
