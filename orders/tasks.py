@@ -1,3 +1,5 @@
+import sys
+
 from celery import shared_task
 from django.core.mail import send_mail
 from .models import Order
@@ -12,5 +14,7 @@ def order_created(order_id):
                f'Ваш заказ успешно размещен.'
                f'Номер вашего заказа {order.id}.')
     mail_sent = send_mail(subject, message, 'admin@myshop.com', [order.email])
+    if order_id == False:
+        sys.exit('Abort!')
     return mail_sent
 
