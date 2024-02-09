@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls', namespace='cart')),#перед шаблоном shop, тк. он более строгий
     path('orders/', include('orders.urls', namespace='orders')),
-    path('coupons/', include('coupons.url', namespace='coupons')),#перед шаблоном shop
+    path('coupons/', include('coupons.urls', namespace='coupons')),#перед шаблоном shop
     path('', include('shop.urls', namespace='shop')),
 ]
 
