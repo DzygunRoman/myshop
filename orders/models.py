@@ -1,6 +1,9 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-from shop.models import Product
 
+from coupons.models import Coupon
+from shop.models import Product
+from decimal import Decimal
 
 class Order(models.Model):
     first_name = models.CharField(max_length=50, verbose_name='Имя')
@@ -12,7 +15,8 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     updated = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
     paid = models.BooleanField(default=False, verbose_name='Статус заказа')
-
+    coupon = models.ForeignKey(Coupon, related_name='orders', null=True, blank=True, on_delete=models.SET_NULL)
+    discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     class Meta:
         ordering = ['-created']
         indexes = [
